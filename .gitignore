@@ -12,4 +12,4 @@ __pycache__/
 #places205/
 imagenet1k/
 coco/
-#voc2007/
+experiments/

@@ -65,7 +65,15 @@ def get_images_labels_info(split, args):
             output_dict[id] = lbl
     return image_paths, image_classes, output_dict
 
-
+def get_images_labels_info_val(args):
+    assert os.path.exists(args.data_source_dir)
+    data_dir = os.path.join(args.data_source_dir, 'val')
+    with open("{}/meta/val.txt".format(args.data_source_dir), 'r') as f:
+        lines = f.readlines()
+    fns = [os.path.join(data_dir, l.split()[0]) for l in lines]
+    lbs = [int(l.strip().split()[1]) for l in lines]
+    return fns, lbs, None
+    
 def main():
     parser = argparse.ArgumentParser(
         description="Create the ImageNet/Places205 data information file")
@@ -86,7 +94,11 @@ def main():
     partitions = ['train', 'val']
     for partition in partitions:
         logger.info('========Preparing {} data files========'.format(partition))
-        imgs_info, lbls_info, output_dict = get_images_labels_info(partition, args)
+
+        if partition == 'val':
+            imgs_info, lbls_info, output_dict = get_images_labels_info_val(args)
+        else:
+            imgs_info, lbls_info, output_dict = get_images_labels_info(partition, args)
         img_info_out_path = os.path.join(
             args.output_dir, partition + '_images.npy')
         label_info_out_path = os.path.join(

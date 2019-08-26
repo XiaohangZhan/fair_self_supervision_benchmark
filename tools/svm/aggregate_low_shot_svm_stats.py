@@ -41,7 +41,7 @@ def aggregate_stats(opts):
     k_values = [int(val) for val in opts.k_values.split(",")]
     sample_inds = [int(val) for val in opts.sample_inds.split(",")]
     #logger.info('Aggregating stats for k-values: {} and sample_inds: {}'.format(
-        k_values, sample_inds))
+        #k_values, sample_inds))
 
     output_mean, output_max, output_min, output_std = [], [], [], []
     for k_idx in range(len(k_values)):

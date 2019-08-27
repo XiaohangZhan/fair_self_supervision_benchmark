@@ -47,7 +47,7 @@ def train_svm(opts):
 
     # parse the cost values for training the SVM on
     costs_list = svm_helper.parse_cost_list(opts.costs_list)
-    #logger.info('Training SVM for costs: {}'.format(costs_list))
+    logger.info('Training SVM for costs: {}'.format(costs_list))
 
     # classes for which SVM training should be done
     if opts.cls_list:
@@ -55,7 +55,7 @@ def train_svm(opts):
     else:
         num_classes = targets.shape[1]
         cls_list = range(num_classes)
-    #logger.info('Training SVM for classes: {}'.format(cls_list))
+    logger.info('Training SVM for classes: {}'.format(cls_list))
 
     for cls_idx in range(len(cls_list)):
         cls = cls_list[cls_idx]
@@ -68,7 +68,7 @@ def train_svm(opts):
                 logger.info('SVM model exists: {}'.format(out_file))
                 logger.info('AP file exists: {}'.format(ap_out_file))
             else:
-                #logger.info('Training model with the cost: {}'.format(cost))
+                logger.info('Training model with the cost: {}'.format(cost))
                 clf = LinearSVC(
                     C=cost, class_weight={1: 2, -1: 1}, intercept_scaling=1.0,
                     verbose=1, penalty='l2', loss='squared_hinge', tol=0.0001,
@@ -81,21 +81,23 @@ def train_svm(opts):
                 cls_labels[np.where(cls_labels == 0)] = -1
                 num_positives = len(np.where(cls_labels == 1)[0])
                 num_negatives = len(cls_labels) - num_positives
-                #logger.info('cls: {} has +ve: {} -ve: {} ratio: {}'.format(
-                 #   cls, num_positives, num_negatives,
-                 #   float(num_positives) / num_negatives)
-                #)
-                #logger.info('features: {} cls_labels: {}'.format(
-                 #   features.shape, cls_labels.shape))
+
+                logger.info('cls: {} has +ve: {} -ve: {} ratio: {}'.format(
+                    cls, num_positives, num_negatives,
+                    float(num_positives) / num_negatives)
+                )
+                logger.info('features: {} cls_labels: {}'.format(
+                    features.shape, cls_labels.shape))
                 ap_scores = cross_val_score(
                     clf, features, cls_labels, cv=3, scoring='average_precision'
                 )
                 clf.fit(features, cls_labels)
-                #logger.info('cls: {} cost: {} AP: {} mean:{}'.format(
-                 #   cls, cost, ap_scores, ap_scores.mean()))
-                #logger.info('Saving cls cost AP to: {}'.format(ap_out_file))
+
+                logger.info('cls: {} cost: {} AP: {} mean:{}'.format(
+                    cls, cost, ap_scores, ap_scores.mean()))
+                logger.info('Saving cls cost AP to: {}'.format(ap_out_file))
                 np.save(ap_out_file, np.array([ap_scores.mean()]))
-                #logger.info('Saving SVM model to: {}'.format(out_file))
+                logger.info('Saving SVM model to: {}'.format(out_file))
                 with open(out_file, 'wb') as fwrite:
                     pickle.dump(clf, fwrite)
 
@@ -120,7 +122,7 @@ def main():
         sys.exit(1)
 
     opts = parser.parse_args()
-    #logger.info(opts)
+    logger.info(opts)
     train_svm(opts)
 
 

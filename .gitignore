@@ -14,3 +14,4 @@ imagenet1k/
 coco/
 experiments/
 *.swp
+#voc2007/

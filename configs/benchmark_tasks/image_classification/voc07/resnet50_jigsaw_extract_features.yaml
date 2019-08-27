@@ -29,9 +29,9 @@ TEST:
   CROP_SIZE: 224
   # Best models below
   # ResNet50 Jigsaw IN1K pretext - best
-  # PARAMS_FILE: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/resnet50_jigsaw_in1k_pretext.pkl
+  PARAMS_FILE: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/resnet50_jigsaw_in1k_pretext.pkl
   # ResNet50 Jigsaw IN22K pretext - best
-  # PARAMS_FILE: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/resnet50_jigsaw_in22k_pretext.pkl
+  PARAMS_FILE: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/resnet50_jigsaw_in22k_pretext.pkl
   # ResNet50 Jigsaw YFCC100M pretext - best
   PARAMS_FILE: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/resnet50_jigsaw_yfcc100m_pretext.pkl
   # Best models for Surface Normals, Detection and the Gibson tasks are

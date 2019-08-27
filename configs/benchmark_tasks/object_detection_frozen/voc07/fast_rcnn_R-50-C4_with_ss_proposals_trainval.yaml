@@ -28,6 +28,6 @@ TRAIN:
   FREEZE_AT: 4
 TEST:
   DATASETS: ('voc_2007_test',)
-  PROPOSAL_FILES: ('https://dl.fbaipublicfiles.com/detectron/selective_search_proposals/selective_search_msra_voc_2007_test.pkl',)
+  PROPOSAL_FILES: ('/mnt/lustre/share/zhanxiaohang/data/ssl-benchmark-output/selective_search_proposals/selective_search_msra_voc_2007_test.pkl',)
 USE_NCCL: False
 OUTPUT_DIR: ./output

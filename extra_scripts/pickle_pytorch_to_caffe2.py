@@ -104,10 +104,12 @@ def _load_pth_pickled_weights(file_path):
 
 
 def convert_bgr2rgb(state_dict):
-    w = state_dict['conv1_w']  # (64, 3, 7, 7)
+    w = state_dict['conv1.weight']  # (64, 3, 7, 7)
     assert (w.shape == (64, 3, 7, 7))
-    w = w[:, ::-1, :, :]
-    state_dict['conv1_w'] = w.copy()
+    inv_idx = torch.arange(w.size(1) - 1, -1, -1).long()
+#    w = w[:, ::-1, :, :]
+    w = w.index_select(1, inv_idx)
+    state_dict['conv1.weight'] = w.clone()
     logger.info('BGR ===> RGB for conv1_w.')
     return state_dict
 

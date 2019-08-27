@@ -13,3 +13,4 @@ __pycache__/
 imagenet1k/
 coco/
 experiments/
+*.swp

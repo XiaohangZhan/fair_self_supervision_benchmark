@@ -12,12 +12,12 @@ RESNETS:
   # STRIDE_1X1: True
 TRAIN:
   # C2 ImageNet Supervised RN50 weights
-  WEIGHTS: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/detection/resnet50_in1k_supervised.pkl
+  # WEIGHTS: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/detection/resnet50_in1k_supervised.pkl
   # C2 Places205 Supervised RN50 weights
   # WEIGHTS: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/detection/resnet50_places205_supervised.pkl
   ## Jigsaw weights
   # ResNet50 Jigsaw detection IN1k pretext - best
-  # WEIGHTS: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/detection/resnet50_jigsaw_in1k_pretext.pkl
+  WEIGHTS: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/detection/resnet50_jigsaw_in1k_pretext.pkl
   # ResNet50 Jigsaw detection IN22k pretext - best
   # WEIGHTS: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/detection/resnet50_jigsaw_in22k_pretext.pkl
   # ResNet50 Jigsaw detection YFCC100M pretext - best

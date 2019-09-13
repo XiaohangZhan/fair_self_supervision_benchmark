@@ -22,7 +22,7 @@ mkdir -p $data/detectron-output/$exp
 
 python $detectron/tools/train_net.py \
     --multi-gpu-testing \
-    --cfg "configs/benchmark_tasks/object_detection_frozen/voc07/e2e_faster_rcnn_R-50-C4_trainval.yaml" \
+    --cfg "configs/benchmark_tasks/object_detection_frozen/voc07/e2e_faster_rcnn_R-50-C4_trainval_debug.yaml" \
     OUTPUT_DIR $data/detectron-output/$exp \
     TRAIN.WEIGHTS $param_folder/resnet50_jigsaw_in1k_pretext.pkl \
     2>&1 | tee $data/detectron-output/$exp/log.txt

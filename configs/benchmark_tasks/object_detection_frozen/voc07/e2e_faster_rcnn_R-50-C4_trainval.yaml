@@ -23,11 +23,11 @@ TRAIN:
   WEIGHTS: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/detection/resnet50_jigsaw_in22k_pretext.pkl
   # ResNet50 Jigsaw detection YFCC100M pretext - best
   WEIGHTS: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/detection/resnet50_jigsaw_yfcc100m_pretext.pkl
-  DATASETS: ('voc_2007_train', 'voc_2007_val')
+  DATASETS: ('voc_2007_train',)
   # freeze the entire body and tune res5 ROI head onwards
   FREEZE_AT: 4
 TEST:
-  DATASETS: ('voc_2007_test',)
+  DATASETS: ('voc_2007_val',)
   RPN_PRE_NMS_TOP_N: 2000
   RPN_POST_NMS_TOP_N: 1000
 USE_NCCL: False

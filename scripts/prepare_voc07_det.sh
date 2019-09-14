@@ -2,11 +2,16 @@
 
 # firstly, download VOC2007 trainval and test and decompress them.
 
-VOC="/DATA/xhzhan/VOC_official/VOCdevkit/"
-detectron="/home/xhzhan/Work_cdc39/proj/detectron"
+if [ ! -d "detectron_files" ]; then
+    echo "Download detectron_files.tar.gz from https://drive.google.com/open?id=1wIzRu4i36TSWmjxR9lZgH6au01RDjYEl and uncompress it under fair_self_supervision_benchmark"
+fi
+
+VOC="/mnt/lustre/share/zhanxiaohang/data/VOCdevkit"
+SSL="/mnt/lustre/share/zhanxiaohang/proj/fair_self_supervision_benchmark"
+detectron="/mnt/lustre/share/zhanxiaohang/proj/detectron"
 
 mkdir -p $detectron/detectron/datasets/data/VOC2007
 
 ln -s $VOC/VOC2007/JPEGImages $detectron/detectron/datasets/data/VOC2007/JPEGImages
-ln -s detectron_files/annotations $detectron/detectron/datasets/data/VOC2007/annotations
+ln -s $SSL/detectron_files/annotations $detectron/detectron/datasets/data/VOC2007/annotations
 ln -s $VOC $detectron/detectron/datasets/data/VOC2007/VOCdevkit2007

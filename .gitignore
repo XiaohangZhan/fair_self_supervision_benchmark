@@ -16,3 +16,5 @@ experiments/
 *.swp
 output/
 #voc2007/
+detectron_files.tar.gz
+detectron_files

@@ -6,9 +6,9 @@ if [ ! -d "detectron_files" ]; then
     echo "Download detectron_files.tar.gz from https://drive.google.com/open?id=1wIzRu4i36TSWmjxR9lZgH6au01RDjYEl and uncompress it under fair_self_supervision_benchmark"
 fi
 
-VOC="/mnt/lustre/share/zhanxiaohang/data/VOCdevkit"
-SSL="/mnt/lustre/share/zhanxiaohang/proj/fair_self_supervision_benchmark"
-detectron="/mnt/lustre/share/zhanxiaohang/proj/detectron"
+VOC="/home/xhzhan/data/VOC/VOCdevkit"
+SSL="/home/xhzhan/proj/fair_self_supervision_benchmark"
+detectron="/home/xhzhan/proj/Detectron"
 
 mkdir -p $detectron/detectron/datasets/data/VOC2007
 

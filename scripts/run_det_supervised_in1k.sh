@@ -13,7 +13,7 @@ python $fair_ssl_tools/extra_scripts/pickle_pytorch_to_caffe2.py \
     --pth_model $pretrain \
     --output_model ${pretrain}.pkl \
     --arch "R-50" \
-    --bgr2rgb 1
+    --bgr2rgb
 # convert to detectron model
 python $fair_ssl_tools/extra_scripts/pickle_caffe2_detection.py \
     --c2_model ${pretrain}.pkl \

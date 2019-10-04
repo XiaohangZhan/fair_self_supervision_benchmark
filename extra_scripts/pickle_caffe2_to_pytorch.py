@@ -20,6 +20,7 @@ from __future__ import division
 from __future__ import unicode_literals
 
 import argparse
+import numpy as np
 import logging
 import pickle
 import re
@@ -27,6 +28,7 @@ import six
 import sys
 import torch
 from collections import OrderedDict
+import pdb
 
 # create the logger
 FORMAT = '[%(levelname)s: %(filename)s: %(lineno)4d]: %(message)s'
@@ -147,6 +149,14 @@ def _load_c2_pickled_weights(file_path):
     return weights
 
 
+def repeat_conv1(state_dict):
+    w = state_dict['conv1_w']
+    assert (w.shape == (64, 1, 7, 7))
+    w = np.tile(w, [1, 3, 1, 1]) / 3.
+    state_dict['conv1_w'] = w.copy()
+    logger.info('repeated conv1')
+    return state_dict
+
 def convert_bgr2rgb(state_dict):
     w = state_dict['conv1_w']  # (64, 3, 7, 7)
     assert (w.shape == (64, 3, 7, 7))
@@ -162,11 +172,13 @@ def main():
                         help='Path to c2 RN-50 model')
     parser.add_argument('--output_model', type=str, default=None,
                         help='Path to save torch RN-50 model')
-    parser.add_argument('--jigsaw', type=bool, default=False,
+    parser.add_argument('--jigsaw', action="store_true",
                         help='Whether jigsaw model or not')
     parser.add_argument('--arch', type=str, default="R-50",
                         help='R-50 | R-101 | R-152')
-    parser.add_argument('--bgr2rgb', dest='bgr2rgb', default=False,
+    parser.add_argument('--bgr2rgb', action='store_true',
+                        help='Revert bgr order to rgb order')
+    parser.add_argument('--repeat_conv1', action='store_true',
                         help='Revert bgr order to rgb order')
     args = parser.parse_args()
 
@@ -174,18 +186,18 @@ def main():
 
     # load the caffe2 model first
     state_dict = _load_c2_pickled_weights(args.c2_model)
-
     # for the pretext model from jigsaw, special processing
     if args.jigsaw:
         state_dict = remove_jigsaw_names(state_dict)
-
     # depending on the image reading library, we convert the weights to be
     # compatible order. The default order of caffe2 weights is BGR (openCV).
+    if args.repeat_conv1:
+        state_dict = repeat_conv1(state_dict)
     if args.bgr2rgb:
         state_dict = convert_bgr2rgb(state_dict)
 
     state_dict = _rename_weights_for_resnet(state_dict, stages)
-    state_dict = dict(state_dict=state_dict)
+    #state_dict = dict(state_dict=state_dict)
     logger.info('Saving converted weights to: {}'.format(args.output_model))
     torch.save(state_dict, args.output_model)
     logger.info('Done!!')

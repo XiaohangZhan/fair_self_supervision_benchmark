@@ -148,7 +148,7 @@ def main():
                         help='Path to save C2 RN-50 model')
     parser.add_argument('--arch', type=str, default="R-50",
                         help='R-50 | R-101 | R-152')
-    parser.add_argument('--bgr2rgb', dest='bgr2rgb', default=False,
+    parser.add_argument('--bgr2rgb', action='store_true',
                         help='Revert bgr order to rgb order')
     args = parser.parse_args()
 

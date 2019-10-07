@@ -11,7 +11,7 @@ detectron="$HOME/proj/Detectron"
 
 export PYTHONPATH=$detectron:$PYTHONPATH
 
-if false; then
+if [ ! -f "${pretrain}.detectron.pkl" ]; then
 # pth to caffe2
 python $fair_ssl_tools/extra_scripts/pickle_pytorch_to_caffe2.py \
     --pth_model $pretrain \
@@ -34,7 +34,7 @@ if $MULTI; then
         TRAIN.WEIGHTS ${pretrain}.detectron.pkl \
         NUM_GPUS 2 \
         2>&1 | tee $outdir/$exp/log.txt
-else:
+else
     python $detectron/tools/train_net.py \
         --cfg "$fair_ssl_tools/configs/benchmark_tasks/object_detection_frozen/voc07/fast_rcnn_R-50-C4_with_ss_proposals_trainval.yaml" \
         OUTPUT_DIR $outdir/$exp \

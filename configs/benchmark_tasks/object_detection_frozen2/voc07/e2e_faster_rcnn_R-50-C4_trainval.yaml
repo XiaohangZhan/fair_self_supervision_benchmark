@@ -1,11 +1,13 @@
 MODEL:
   TYPE: ResNet50_fast_rcnn
   NUM_CLASSES: 21
+  FASTER_RCNN: True
 NUM_GPUS: 2
 SOLVER:
-  STEP_SIZE: 22000 # default: 15000
-  MAX_ITER: 30000 # default: 20000
-  BASE_LR: 0.002
+  STEP_SIZE: 50000 # default: 25000
+  MAX_ITER: 150000 # default: 35000
+  BASE_LR: 0.01
+  WEIGHT_DECAY: 0.0001
 RESNETS:
   STRIDE_1X1: False
   # NOTE: Set to True if using the MSRA weights below. Otherwise False.
@@ -13,19 +15,22 @@ RESNETS:
 TRAIN:
   # C2 ImageNet Supervised RN50 weights
   #WEIGHTS: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/detection/resnet50_in1k_supervised.pkl
-  ## C2 Places205 Supervised RN50 weights
+  # C2 Places205 Supervised RN50 weights
   #WEIGHTS: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/detection/resnet50_places205_supervised.pkl
-  ### Jigsaw weights
-  ## ResNet50 Jigsaw detection IN1k pretext - best
+  ## Jigsaw weights
+  # ResNet50 Jigsaw detection IN1k pretext - best
   #WEIGHTS: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/detection/resnet50_jigsaw_in1k_pretext.pkl
-  ### distr 12 init
+  # ResNet50 Jigsaw detection IN22k pretext - best
   #WEIGHTS: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/detection/resnet50_jigsaw_in22k_pretext.pkl
-  ## ResNet50 Jigsaw detection YFCC100M pretext - best
+  # ResNet50 Jigsaw detection YFCC100M pretext - best
   #WEIGHTS: https://dl.fbaipublicfiles.com/fair_self_supervision_benchmark/models/detection/resnet50_jigsaw_yfcc100m_pretext.pkl
   DATASETS: ('voc_2007_train', 'voc_2007_val')
-  PROPOSAL_FILES: ('/mnt/lustre/share/zhanxiaohang/proj/fair_self_supervision_benchmark/detectron_files/proposals/selective_search_msra_voc_2007_train.pkl', '/mnt/lustre/share/zhanxiaohang/proj/fair_self_supervision_benchmark/detectron_files/proposals/selective_search_msra_voc_2007_val.pkl')
+  # freeze the entire body and tune res5 ROI head onwards
+  FREEZE_AT: 2
+  SCALES: (400, 500, 600, 700)
 TEST:
   DATASETS: ('voc_2007_test',)
-  PROPOSAL_FILES: ('/mnt/lustre/share/zhanxiaohang/proj/fair_self_supervision_benchmark/detectron_files/proposals/selective_search_msra_voc_2007_test.pkl',)
+  RPN_PRE_NMS_TOP_N: 2000
+  RPN_POST_NMS_TOP_N: 1000
 USE_NCCL: False
 OUTPUT_DIR: ./output

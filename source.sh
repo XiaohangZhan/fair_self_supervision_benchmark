@@ -1,3 +1,3 @@
 #!/bin/bash
-source ~/envsetup9.0.sh
+source ~/envsetup.sh
 source activate ssl-bench

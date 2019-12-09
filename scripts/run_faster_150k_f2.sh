@@ -29,14 +29,14 @@ mkdir -p $outdir/$exp
 if $MULTI; then
     python $detectron/tools/train_net.py \
         --multi-gpu-testing \
-        --cfg "$fair_ssl_tools/configs/benchmark_tasks/object_detection_frozen/voc07/fast_rcnn_R-50-C4_with_ss_proposals_trainval.yaml" \
+        --cfg "$fair_ssl_tools/configs/benchmark_tasks/object_detection_frozen2/voc07/e2e_faster_rcnn_R-50-C4_trainval.yaml" \
         OUTPUT_DIR $outdir/$exp \
         TRAIN.WEIGHTS ${pretrain}.detectron.pkl \
         NUM_GPUS 2 \
         2>&1 | tee $outdir/$exp/log.txt
 else
     python $detectron/tools/train_net.py \
-        --cfg "$fair_ssl_tools/configs/benchmark_tasks/object_detection_frozen/voc07/fast_rcnn_R-50-C4_with_ss_proposals_trainval.yaml" \
+        --cfg "$fair_ssl_tools/configs/benchmark_tasks/object_detection_frozen2/voc07/e2e_faster_rcnn_R-50-C4_trainval.yaml" \
         OUTPUT_DIR $outdir/$exp \
         TRAIN.WEIGHTS ${pretrain}.detectron.pkl \
         2>&1 | tee $outdir/$exp/log.txt
